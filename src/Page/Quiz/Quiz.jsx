@@ -1,57 +1,111 @@
 import { Button } from "@/components/ui/button";
-
+import { useEffect, useState } from "react";
+import Navbar from "../Home/Navbar";
+import { useNavigate } from "react-router-dom";
 
 const Quiz = () => {
-  return (
-   <>
-        <h1 className="text-xl text-black ">Topic Name </h1>
+  const [question, setQuestion] = useState([]);
+  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
+  const [marks, setMarks] = useState(0);
+  const [totalquestion, setTotalQuestion] = useState(0);
+  const [submitedAnswer, setSubmitedAnswer] = useState("");
+  const navigate = useNavigate();
+  const [checked, setChecked] = useState(null);
 
-      <div className=" bg-gray-900 flex justify-center items-center m-10 pb-10 rounded-lg shadow-slate-300 shadow-lg">
+  useEffect(() => {
+    async function fetchdata() {
+      fetch("http://localhost:8080/allquestion")
+        .then((res) => res.json())
+        .then((data) => {
+          setQuestion(data);
+          console.log(question);
+        });
+    }
+
+    fetchdata();
+  }, []);
+
+  const currentQuestion = question[currentQuestionIndex];
+
+  function setoption(option) {
+    setSubmitedAnswer(option);
+    setChecked(option);
+  }
+
+  const handleSubmit = () => {
+    if (submitedAnswer === currentQuestion?.answer) {
+      setMarks((prevMarks) => prevMarks + 1);
+    }
+    setTotalQuestion((prev) => prev + 1);
+    if (totalquestion + 1 === 5) {
+      console.log(marks + 1);
+
+      localStorage.setItem("marks", marks + 1);
+      localStorage.setItem("totalQuestion", totalquestion + 1);
+      navigate("/result");
+    }
+    setCurrentQuestionIndex((prev) => prev + 1);
+    setChecked(null);
+    setSubmitedAnswer("");
+  };
+
+  return (
+ <div className="bg-black h-100vh">
+
+
+      <Navbar />
+      <h1 className="text-xl text-black">Topic Name </h1>
+
+      <div className=" bg-gray-900 flex justify-center items-center m-10 pb-10 rounded-lg shadow-gray-800 shadow-lg">
         <div className=" w-[50%] h-96">
           <div className="m-[10%]   ">
             <div className="mb-4 flex justify-between">
               <p className="text-sm text-start text-gray-400">
-                Question 6 of 10
+                Question {totalquestion + 1} of 5
               </p>
-              <p className="text-sm text-start text-green-400">
-                2:00:21
-              </p>
+              <p className="text-sm text-start text-green-400">2:00:21</p>
             </div>
             <div className="mb-6">
               <p className="text-lg font-semibold text-white text-left">
-                Which of these color contrast ratios defines the minimum WCAG
-                2.1 Level AA requirement for normal text?
+                {currentQuestion?.question}
               </p>
             </div>
           </div>
         </div>
-        <div className="w-[50%] pt-10 p-3 mr-6 text-white  h-96">
-         
-            <div className="space-y-4 ">
-              <button className="w-full bg-gray-700 p-3 rounded-lg text-left flex items-center gap-5 hover:bg-slate-500">
-                <span>A</span>
-                <span>4.5 : 1</span>
-              </button>
-              <button className="w-full bg-gray-700 p-3 rounded-lg text-left flex items-center gap-5 hover:bg-slate-500">
-                <span>B</span>
-                <span>3 : 1</span>
-              </button>
-              <button className="w-full bg-gray-700 p-3 rounded-lg text-left flex items-center gap-5 hover:bg-slate-500">
-                <span>C</span>
-                <span>2.5 : 1</span>
-              </button>
-              <button className="w-full bg-gray-700 p-3 rounded-lg text-left flex items-center gap-5 hover:bg-slate-500">
-                <span>D</span>
-                <span>5 : 1</span>
-              </button>
-            </div>
-            <div className="mt-6">
-              <Button className="w-[50%] ">Submit answer</Button>
-            </div>
-
+        <div className="w-[50%] pt-10 p-3 mr-16 mt-6 text-white h-96">
+          <div className="space-y-5">
+            {currentQuestion?.options?.map((option, index) => (
+              <div key={index}>
+                <input
+                  type="radio"
+                  id={`option-${index}`}
+                  name="hosting"
+                  value={option}
+                  className="hidden peer"
+                  checked={checked === option}
+                  onChange={() => setoption(option)}
+                  required
+                />
+                <label
+                  htmlFor={`option-${index}`}
+                  className="inline-flex items-center bg-gray-800 hover:bg-slate-700 justify-between w-full  text-white  border-gray-700 rounded-lg cursor-pointer  dark:peer-checked:text-blue-400 peer-checked:border-blue-500 peer-checked:text-blue-500 "
+                >
+                  <span className="w-full bg-gray-800 p-3 rounded-lg text-left flex items-center gap-5 hover:bg-slate-700">
+                    <span>{String.fromCharCode(65 + index)}</span>
+                    <span>{option}</span>
+                  </span>
+                </label>
+              </div>
+            ))}
+          </div>
+          <div className="mt-6 flex justify-end">
+            <Button onClick={handleSubmit} className="w-[40%]">
+              Submit answer
+            </Button>
+          </div>
         </div>
       </div>
-      </>
+      </div>
   );
 };
 

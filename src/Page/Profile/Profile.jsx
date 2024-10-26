@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import React from "react";
+import Navbar from "../Home/Navbar";
 
 const Profile = () => {
   return (
@@ -10,6 +11,7 @@ const Profile = () => {
           "url('https://plus.unsplash.com/premium_photo-1673306778968-5aab577a7365?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
       }}
     >
+      <Navbar/>
       <div className="max-w-4xl flex items-center h-auto lg:h-screen flex-wrap mx-auto my-32 lg:my-0">
         {/* Main Col */}
         <div

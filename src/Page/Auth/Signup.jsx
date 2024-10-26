@@ -1,10 +1,48 @@
 import { Button } from "@/components/ui/button";
 
 const Signup = () => {
+  const navigate = useNavigate();
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    const data = {
+      fullname: event.target.fullname.value,
+      username: event.target.username.value,
+      email: event.target.email.value,
+      password: event.target.password.value,
+      confirmPassword: event.target.confirmPassword.value,
+    };
+    try {
+      const response = await fetch("http://localhost:8080/auth/signin", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+      console.log(JSON.stringify(data));
+
+      if (!response.status) {
+        throw new Error("Network response was not ok");
+      }
+      const responsedata = await response.json();
+      localStorage.setItem("token", responsedata.jwt);
+      if (responsedata.jwt != null) {
+        console.log("Register Successfully");
+        navigate("/home");
+      } else {
+        console.log("Register falied ");
+      }
+    } catch (error) {
+      console.log("Error", error);
+    }
+  };
+
   return (
     <div
       style={{
-        backgroundImage: "url('https://images.unsplash.com/photo-1652986766649-1f3382b0e98b?q=80&w=2121&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
+        backgroundImage:
+          "url('https://images.unsplash.com/photo-1652986766649-1f3382b0e98b?q=80&w=2121&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
         backgroundSize: "cover",
         backgroundPosition: "center",
       }}
@@ -17,18 +55,18 @@ const Signup = () => {
           <h2 className="text-2xl font-bold text-white text-center mb-6">
             Create your Account
           </h2>
-          <form>
-          <div className="mb-4">
+          <form onSubmit={handleSubmit}>
+            <div className="mb-4">
               <label
                 className="block text-white text-start text-sm mb-2"
                 htmlFor="fullname"
               >
-              FullName
+                FullName
               </label>
               <input
                 className="w-full px-3 py-2 text-gray-50 bg-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
                 type="text"
-                id="fullname"
+                name="fullname"
                 placeholder="FullName"
               />
             </div>
@@ -42,7 +80,7 @@ const Signup = () => {
               <input
                 className="w-full px-3 py-2 text-gray-50 bg-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
                 type="text"
-                id="username"
+                name="username"
                 placeholder="Username"
               />
             </div>
@@ -56,7 +94,7 @@ const Signup = () => {
               <input
                 className="w-full px-3 py-2 text-gray-50 bg-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
                 type="email"
-                id="email"
+                name="email"
                 placeholder="name@company.com"
               />
             </div>
@@ -70,7 +108,7 @@ const Signup = () => {
               <input
                 className="w-full px-3 py-2 text-gray-50 bg-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
                 type="password"
-                id="password"
+                name="password"
                 placeholder="Password"
               />
             </div>
@@ -84,11 +122,11 @@ const Signup = () => {
               <input
                 className="w-full px-3 py-2 text-gray-50 bg-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
                 type="password"
-                id="confirm-password"
+                name="confirmPassword"
                 placeholder="Confirm Password"
               />
             </div>
-            
+
             <div className="mb-4">
               <label className=" pl-1 flex items-center">
                 <input
@@ -104,9 +142,7 @@ const Signup = () => {
               </label>
             </div>
             <div className="mb-4">
-              <Button className="w-full py-2 ">
-                Register
-              </Button>
+              <Button className="w-full py-2 ">Register</Button>
             </div>
             <div className="text-center">
               <a href="/login" className="text-purple-500 text-sm">

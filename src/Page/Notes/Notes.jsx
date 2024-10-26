@@ -1,14 +1,16 @@
+import Navbar from "../Home/Navbar";
 
 
 const Notes = () => {
 
-  const back = {
-    backgroundColor: "#1a202c",
-  }
+
   return (
-    <div className="grid grid-cols-3  mt-20 " style={back}>
+  <div className="bg-gray-950 ">
+ <Navbar/>
+<div className="grid grid-cols-3  m-20 " >
+     
       {[1, 2, 3, 4, 5, 6, 7].map((i) => (
-        <div key={i} className="max-w-sm m-5 rounded overflow-hidden shadow-lg bg-gray-800 text-white">
+        <div key={i} className="max-w-sm m-5 rounded overflow-hidden shadow-lg bg-gray-900 text-white">
           <img
             className="w-full"
             src="https://media.istockphoto.com/id/1800292591/photo/sql-structured-query-language-technology-concept-icon-virtual-screen.jpg?s=612x612&w=0&k=20&c=Natt2t_aFsr-KlPiMMQUPKIX6sbDb2hOTRhUFcSq6cA="
@@ -32,6 +34,9 @@ const Notes = () => {
         </div>
       ))}
     </div>
+
+  </div>
+    
   );
 };
 
