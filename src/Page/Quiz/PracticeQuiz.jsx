@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../Home/Navbar";
 import { useNavigate } from "react-router-dom";
 
-const Quiz = () => {
+const PracticeQuiz = () => {
   const [question, setQuestion] = useState([]);
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [marks, setMarks] = useState(0);
@@ -13,14 +13,25 @@ const Quiz = () => {
   const [checked, setChecked] = useState(null);
 
   useEffect(() => {
-    async function fetchdata() {
-      fetch("http://localhost:8080/allquestion")
-        .then((res) => res.json())
-        .then((data) => {
+    const fetchdata = async () => {
+      const token = localStorage.getItem("token");
+      const type = localStorage.getItem("type");
+
+      const response = await fetch(`http://localhost:8080/quiz/practicequestion?type=${encodeURIComponent(type)}`, {
+        method: "get",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        
+      });
+
+      if (response.ok) {
+        const data = await response.json().then((data) => {
+          console.log("Data is",data);
           setQuestion(data);
-          console.log(question);
         });
-    }
+      }
+    };
 
     fetchdata();
   }, []);
@@ -50,9 +61,7 @@ const Quiz = () => {
   };
 
   return (
- <div className="bg-black h-100vh">
-
-
+    <div className="bg-black h-100vh">
       <Navbar />
       <h1 className="text-xl text-black">Topic Name </h1>
 
@@ -105,8 +114,8 @@ const Quiz = () => {
           </div>
         </div>
       </div>
-      </div>
+    </div>
   );
 };
 
-export default Quiz;
+export default PracticeQuiz;

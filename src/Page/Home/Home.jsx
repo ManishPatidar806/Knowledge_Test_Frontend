@@ -1,46 +1,68 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
+import Data from "../data/Data";
 
 const Home = () => {
   const navigate = useNavigate();
 
-  function execution() {
-    navigate("/quiz");
+  function executionPractice(type) { 
+    console.log(`Data is ${Data}`);
+     
+    localStorage.removeItem('type')
+    localStorage.setItem('type',type)
+    navigate("/practicequiz");
+    console.log("Clicked is work");
+  }
+
+  function executionCertificate(type) {
+
+
+    localStorage.removeItem('type')
+    localStorage.setItem('type',type)
+
+    navigate("/certificationquiz");
     console.log("Clicked is work");
   }
 
   return (
     <div className="bg-gray-950">
-      <Navbar/>
+      <Navbar />
       <h1 className="text-xl text-white m-10 bg-gray-950">Quiz Section</h1>
-      <div className="grid grid-cols-2 gap-4 mt-20 p-5 m-5">
-        {[1, 2, 3, 4, 5, 6, 7].map((i) => (
-          <div key={i} className="flex justify-center items-center">
-            <div className="bg-gray-900 text-white rounded-lg shadow-lg flex max-w-4xl">
-              <img
-                src="https://return.co.de/media/images/shoot-n-design-cfR-V1QuEKw-unsplash.jpg"
-                alt="Office workspace with laptops and other equipment"
-                className="rounded-l-lg object-cover"
-                style={{ width: "300px" }}
-              />
-              <div className="p-2 text-start">
-                <h2 className="text-lg font-bold mb-2 ">Java as Developer</h2>
-                <p className="text-gray-400 text-sm">
-                  Here are the biggest enterprise technology acquisitions of
-                  2021 so far, in reverse chronological order. Here are the
-                  biggest enterprise technology acquisitions of 2021 so far, in
-                  reverse chronological order.
-                </p>
-                <div className=" pt-2 pb-1 flex justify-end">
-                  <Button
-                    onClick={execution}
-                    className=" w-[35%]   font-bold py-1 px-3 rounded  "
-                  >
-                    <span>Explore</span>
-                  </Button>
-                </div>
+      <div className="grid grid-cols-3  m-20 ">
+        {Data.map((item , i) => (
+          <div
+            key={i}
+            className="max-w-sm m-5 rounded overflow-hidden shadow-lg bg-gray-900 text-white"
+          >
+            <img
+              className="w-full"
+              src="https://media.istockphoto.com/id/1800292591/photo/sql-structured-query-language-technology-concept-icon-virtual-screen.jpg?s=612x612&w=0&k=20&c=Natt2t_aFsr-KlPiMMQUPKIX6sbDb2hOTRhUFcSq6cA="
+              alt="A desk setup with a laptop, lamp, and plant"
+            />
+            <div className="px-6 py-4 text-start">
+              <div className="font-bold text-xl mb-2">
+               {item.name}
               </div>
+              <p className="text-gray-400 text-base">
+               {item.description}
+              </p>
+            </div>
+            <div className="px-6 pt-4 pb-5 flex justify-between">
+              <button
+                className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded flex justify-start "
+                onClick={()=>{executionPractice(item.type)}}
+              >
+                <span>Read more</span>
+                <i className="fas fa-arrow-right ml-2"></i>
+              </button>
+              <button
+                className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded flex justify-start "
+                onClick={()=>{executionCertificate(item.type)}}
+              >
+                <span>Explore more</span>
+                <i className="fas fa-arrow-right ml-2"></i>
+              </button>
             </div>
           </div>
         ))}

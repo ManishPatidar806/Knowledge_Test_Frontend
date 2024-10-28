@@ -9,12 +9,12 @@ const Navbar = () => {
       path: "/home",
     },
     {
-      name: "Certification",
-      path: "/certification",
-    },
-    {
       name: "Notes",
       path: "/notes",
+    },
+    {
+      name: "DSA Sheets",
+      path: "/sheet",
     },
 
     {
