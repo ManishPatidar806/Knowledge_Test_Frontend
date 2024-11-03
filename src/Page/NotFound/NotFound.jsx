@@ -43,7 +43,7 @@ const Shape = () => {
 
 const NotFound = () => {
 	return (
-		<section className="ezy__httpcodes4 dark py-48 md:py-80 bg-white dark:bg-[#0b1727] text-[#04004d] dark:text-white relative overflow-hidden z-[1]">
+		<section className="ezy__httpcodes4 dark py-48 md:py-80  dark:bg-[#0b1727] text-[#04004d] dark:text-white relative overflow-hidden z-[1]" style={{ backgroundColor: "#EEF2FF" }}>
 			<Shape />
 
 			<div className="container px-4 mx-auto">
@@ -59,7 +59,7 @@ const NotFound = () => {
 					</div>
 					<div className="col-span-12 lg:col-span-7">
 						<img
-							src="https://cdn.easyfrontend.com/pictures/httpcodes/four.png"
+							src="https://res.cloudinary.com/dgmsfmeaz/image/upload/v1730317301/KnowledgeTest/ldmmhhyangsyeidp6foj.png"
 							alt=""
 							className="max-w-full h-auto"
 						/>

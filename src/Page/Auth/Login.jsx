@@ -1,9 +1,10 @@
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Login = () => {
-const navigate = useNavigate();
-
+  const navigate = useNavigate();
+  const { flag, setFlag } = useState(false);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -22,81 +23,80 @@ const navigate = useNavigate();
         body: JSON.stringify(data),
       });
 
-      if (!response.status) {
+      if (!response.ok) {
+        setFlag(true);
         throw new Error("Network response was not ok");
       }
 
       const responsedata = await response.json();
-      localStorage.setItem('token',responsedata.jwt)
-      if(responsedata.jwt!=null){
+      localStorage.setItem("token", responsedata.jwt);
+      localStorage.setItem("fullname", responsedata.fullname);
+      localStorage.setItem("domain", responsedata.domain);
+      localStorage.setItem("place", responsedata.place);
+      localStorage.setItem("description", responsedata.description);
+      if (responsedata.jwt != null) {
         console.log("Login Success");
-          navigate('/home')
-      }else{
+        navigate("/home");
+      } else {
+        setFlag(true);
         console.log("Login falied ");
       }
-     
-
     } catch (error) {
+      setFlag(true);
       console.log("Error", error);
     }
   };
 
   return (
-    <div
-      style={{
-        backgroundImage:
-          "url('https://images.unsplash.com/photo-1619995745882-f4128ac82ad6?q=80&w=1932&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      <div className="flex items-center justify-center min-h-screen bg-gray-900 bg-opacity-50">
-        <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
-          <div className="flex justify-center mb-6">
-            <i className="fas fa-play-circle text-4xl text-purple-500"></i>
-          </div>
-          <h2 className="text-2xl font-bold text-white text-center mb-6">
-            Login
-          </h2>
-          <form onSubmit={handleSubmit}>
+    <div style={{ backgroundColor: "#EEF2FF" }} className="min-h-screen">
+      <div className=" py-40">
+        <div className="max-w-4xl mx-auto shadow-lg flex flex-col md:flex-row">
+          <div
+            className="hidden md:block w-1/2 bg-cover bg-center"
+            style={{
+              backgroundImage:
+                "url('https://res.cloudinary.com/dgmsfmeaz/image/upload/v1730360946/KnowledgeTest/b9xqqaxcdg9ykh8cbjt4.avif')",
+            }}
+          ></div>
+          <form
+            onSubmit={handleSubmit}
+            className="flex flex-col w-full md:w-1/2 bg-white p-10 text-black"
+          >
+            <h2 className="text-center text-2xl mb-8">
+              <strong>Login</strong>
+            </h2>
             <div className="mb-4">
-              <label
-                className="block text-white text-start text-sm mb-2 "
-                htmlFor="email"
-              >
-                Your email
-              </label>
               <input
-                className="w-full px-3 py-2 text-gray-50 bg-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="form-control w-full bg-[#f7f9fc] border-b border-[#dfe7f1] h-10 px-2 placeholder:text-gray-600"
                 type="email"
                 name="email"
-                placeholder="name@company.com"
+                placeholder="Email"
+                required
               />
+              {flag && <div className="text-red-600">Enter valid Email</div>}
             </div>
-
             <div className="mb-4">
-              <label
-                className="block text-white text-start text-sm mb-2"
-                htmlFor="password"
-              >
-                Password
-              </label>
               <input
-                className="w-full px-3 py-2 text-gray-50 bg-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
+                className="form-control w-full bg-[#f7f9fc] border-b border-[#dfe7f1] h-10 px-2 placeholder:text-gray-600"
                 type="password"
                 name="password"
-                placeholder="********"
+                placeholder="Password"
+                required
               />
+              {flag && <div className="text-red-600">Enter valid Password</div>}
+            </div>
+            <div className="mb-4">
+              <Button
+                className="btn btn-primary w-full text-white py-2 rounded  transition-transform active:translate-y-1 "
+                type="submit"
+              >
+                Login
+              </Button>
             </div>
 
-            <div className="mb-4">
-              <Button className="w-full py-2 ">Login</Button>
-            </div>
-            <div className="text-center">
-              <a href="/signup" className="text-purple-500 text-sm">
-                dont't have an account?
-              </a>
-            </div>
+            <a href="/signup" className="text-center text-sm text-blue-700 ">
+              You don't have an account? Click here.
+            </a>
           </form>
         </div>
       </div>

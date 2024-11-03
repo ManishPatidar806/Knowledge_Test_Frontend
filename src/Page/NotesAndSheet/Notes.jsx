@@ -1,3 +1,4 @@
+import NotesData from "../data/NotesData";
 import Navbar from "../Home/Navbar";
 import { useNavigate } from "react-router-dom";
 
@@ -6,36 +7,48 @@ const Notes = () => {
 
 
   return (
-    <div className="bg-gray-950 ">
-      <Navbar />
-      <div className="grid grid-cols-3  m-20 ">
-        {[1, 2, 3, 4, 5, 6, 7].map((i) => (
+    <div style={{ backgroundColor: "#EEF2FF" }}>
+      <diV className="py-[3%]">
+        <Navbar />
+      </diV>
+
+      <div
+        className="grid  grid-cols-1   lg:grid-cols-3 2xl:grid-cols-4
+      md:grid-cols-2 
+      
+      gap-4 md:mx-[2.5%]  mt-5 "
+      >
+        {NotesData.map(( item,i) => (
           <div
             key={i}
-            className="max-w-sm m-5 rounded overflow-hidden shadow-lg bg-gray-900 text-white"
+            className="max-w-sm md:max-w-md m-5 pb-10 rounded overflow-hidden shadow-lg  text-white bg-indigo-100 relative"
+            // style={{ backgroundColor: "#EAE8FF" }}
           >
             <img
-              className="w-full"
-              src="https://media.istockphoto.com/id/1800292591/photo/sql-structured-query-language-technology-concept-icon-virtual-screen.jpg?s=612x612&w=0&k=20&c=Natt2t_aFsr-KlPiMMQUPKIX6sbDb2hOTRhUFcSq6cA="
+              className="w-full h-[50%]"
+              src={item.image}
+
               alt="A desk setup with a laptop, lamp, and plant"
             />
-            <div className="px-6 py-4 text-start">
-              <div className="font-bold text-xl mb-2">
-                Noteworthy technology acquisitions 2021
+            <div className="px-6 py-4 pb-7 text-start  lg:px-1   xl:px-6">
+              <div className="font-bold text-xl text-black mb-2">
+                {item.name}
               </div>
-              <p className="text-gray-400 text-base">
-                Here are the biggest enterprise technology acquisitions of 2021
-                so far, in reverse chronological order.
+              <p className="text-gray-900 text-base">
+               {item.description}
               </p>
             </div>
-            <div className="px-6 pt-4 pb-5">
-              <button
+            <div className="px-6 pt-4 pb-5 absolute bottom-0 lg:-bottom-2 xl:bottom-0">
+              <a href={item.link}>
+                 <button
                 className="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded flex justify-start "
            
               >
-                <span>Read more</span>
+                <span>Open</span>
                 <i className="fas fa-arrow-right ml-2"></i>
               </button>
+              </a>
+             
             </div>
           </div>
         ))}

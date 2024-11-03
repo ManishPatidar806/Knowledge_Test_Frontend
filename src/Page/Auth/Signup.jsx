@@ -1,16 +1,21 @@
 import { Button } from "@/components/ui/button";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const navigate = useNavigate();
+  const { message, setMessage } = useState();
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const data = {
       fullname: event.target.fullname.value,
-      username: event.target.username.value,
+      domain: event.target.domain.value,
       email: event.target.email.value,
+      place: event.target.place.value,
       password: event.target.password.value,
       confirmPassword: event.target.confirmPassword.value,
+      description: event.target.description.value,
     };
     try {
       const response = await fetch("http://localhost:8080/auth/signin", {
@@ -22,16 +27,24 @@ const Signup = () => {
       });
       console.log(JSON.stringify(data));
 
+      const responsedata = await response.json();
       if (!response.status) {
+        setMessage(responsedata.message);
+        console.log(responsedata.message);
+
         throw new Error("Network response was not ok");
       }
-      const responsedata = await response.json();
+
       localStorage.setItem("token", responsedata.jwt);
+      localStorage.setItem("fullname", responsedata.fullname);
+      localStorage.setItem("domain", responsedata.domain);
+      localStorage.setItem("place", responsedata.place);
+      localStorage.setItem("description", responsedata.description);
       if (responsedata.jwt != null) {
-        console.log("Register Successfully");
+        setMessage("Register Successfully");
         navigate("/home");
       } else {
-        console.log("Register falied ");
+        setMessage("Register falied ");
       }
     } catch (error) {
       console.log("Error", error);
@@ -39,117 +52,121 @@ const Signup = () => {
   };
 
   return (
-    <div
-      style={{
-        backgroundImage:
-          "url('https://images.unsplash.com/photo-1652986766649-1f3382b0e98b?q=80&w=2121&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
-    >
-      <div className="flex items-center justify-center min-h-screen bg-gray-900 bg-opacity-50">
-        <div className="bg-gray-800 p-8 rounded-lg shadow-lg w-full max-w-md">
-          <div className="flex justify-center mb-6">
-            <i className="fas fa-play-circle text-4xl text-purple-500"></i>
-          </div>
-          <h2 className="text-2xl font-bold text-white text-center mb-6">
-            Create your Account
-          </h2>
-          <form onSubmit={handleSubmit}>
-            <div className="mb-4">
-              <label
-                className="block text-white text-start text-sm mb-2"
-                htmlFor="fullname"
-              >
-                FullName
-              </label>
-              <input
-                className="w-full px-3 py-2 text-gray-50 bg-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
-                type="text"
-                name="fullname"
-                placeholder="FullName"
-              />
-            </div>
-            <div className="mb-4">
-              <label
-                className="block text-white text-start text-sm mb-2"
-                htmlFor="username"
-              >
-                Username
-              </label>
-              <input
-                className="w-full px-3 py-2 text-gray-50 bg-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
-                type="text"
-                name="username"
-                placeholder="Username"
-              />
-            </div>
-            <div className="mb-4">
-              <label
-                className="block text-white text-start text-sm mb-2"
-                htmlFor="email"
-              >
-                Your email
-              </label>
-              <input
-                className="w-full px-3 py-2 text-gray-50 bg-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
-                type="email"
-                name="email"
-                placeholder="name@company.com"
-              />
-            </div>
-            <div className="mb-4">
-              <label
-                className="block text-white text-start text-sm mb-2"
-                htmlFor="password"
-              >
-                Password
-              </label>
-              <input
-                className="w-full px-3 py-2 text-gray-50 bg-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
-                type="password"
-                name="password"
-                placeholder="Password"
-              />
-            </div>
-            <div className="mb-4">
-              <label
-                className="block text-white text-start text-sm mb-2"
-                htmlFor="confirm-password"
-              >
-                Confirm password
-              </label>
-              <input
-                className="w-full px-3 py-2 text-gray-50 bg-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-purple-500"
-                type="password"
-                name="confirmPassword"
-                placeholder="Confirm Password"
-              />
-            </div>
-
-            <div className="mb-4">
-              <label className=" pl-1 flex items-center">
+    <div>
+      <div className="  min-h-screen " style={{ backgroundColor: "#EEF2FF" }}>
+        <div className=" py-28">
+          <div className="max-w-4xl mx-auto shadow-lg flex flex-col md:flex-row">
+            <div
+              className="hidden md:block w-1/2 bg-cover bg-center"
+              style={{
+                backgroundImage:
+                  "url('https://res.cloudinary.com/dgmsfmeaz/image/upload/v1730360938/KnowledgeTest/zxyeddspyhi9pxxkh3ws.jpg')",
+              }}
+            ></div>
+            <form
+              onSubmit={handleSubmit}
+              className="flex flex-col w-full md:w-1/2 bg-white p-10"
+            >
+              <h2 className="text-center text-2xl mb-8">
+                <strong>Create</strong> account
+              </h2>
+              <div className="mb-4">
                 <input
-                  type="checkbox"
-                  className="form-checkbox text-purple-500 bg-gray-700 border-gray-600 rounded focus:ring-2 focus:ring-purple-500"
+                  className="form-control w-full bg-[#f7f9fc] border-b border-[#dfe7f1] h-10 px-2 placeholder:text-gray-600"
+                  type="text"
+                  name="fullname"
+                  placeholder="Full Name"
+                  required
                 />
-                <span className="ml-2 text-white  text-sm">
-                  I accept the{" "}
-                  <a href="#" className="text-purple-500">
-                    Terms and Conditions
-                  </a>
-                </span>
-              </label>
-            </div>
-            <div className="mb-4">
-              <Button className="w-full py-2 ">Register</Button>
-            </div>
-            <div className="text-center">
-              <a href="/login" className="text-purple-500 text-sm">
+              </div>
+
+              <div className="mb-4">
+                <input
+                  className="form-control w-full bg-[#f7f9fc] border-b border-[#dfe7f1] h-10 px-2 placeholder:text-gray-600"
+                  type="text"
+                  name="domain"
+                  placeholder="Profession"
+                  required
+                />
+              </div>
+              <div className="mb-4 ">
+                <input
+                  className="form-control w-full bg-[#f7f9fc] border-b border-[#dfe7f1] h-10 px-2 placeholder:text-gray-600 "
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  required
+                />
+              </div>
+
+              <div className="mb-4">
+                <input
+                  className="form-control w-full bg-[#f7f9fc] border-b border-[#dfe7f1] h-10 px-2 placeholder:text-gray-600"
+                  type="text"
+                  name="place"
+                  placeholder="Location"
+                  required
+                />
+              </div>
+
+              <div className="mb-4">
+                <input
+                  className="form-control w-full bg-[#f7f9fc] border-b border-[#dfe7f1] h-10 px-2 placeholder:text-gray-600"
+                  type="password"
+                  name="password"
+                  placeholder="Password"
+                  required
+                />
+              </div>
+
+              <div className="mb-4">
+                <input
+                  className="form-control w-full bg-[#f7f9fc] border-b border-[#dfe7f1] h-10 px-2 placeholder:text-gray-600"
+                  type="text"
+                  name="confirmPassword"
+                  placeholder="Confirm-Password"
+                  required
+                />
+              </div>
+              <div className="mb-4">
+                <textarea
+                  className="form-control w-full bg-[#f7f9fc] border-b border-[#dfe7f1] h-10 px-2 placeholder:text-gray-600"
+                  type="text"
+                  name="description"
+                  placeholder="Describe your self."
+                />
+              </div>
+
+              <div className="mb-4">
+                <label className=" pl-1 flex items-center">
+                  <input
+                    type="checkbox"
+                    className="form-checkbox text-blue-500 bg-gray-700 border-gray-600 rounded focus:ring-2 focus:ring-blue-500"
+                  />
+                  <span className="ml-2 text-black  text-sm">
+                    I accept the{" "}
+                    <a href="#" className="text-black">
+                      Terms and Conditions
+                    </a>
+                  </span>
+                </label>
+              </div>
+
+              <div className="text-black"> {message != null && message}</div>
+              <div className="mb-4">
+                <Button
+                  className="btn btn-primary w-full text-white py-2 rounded  transition-transform active:translate-y-1"
+                  type="submit"
+                >
+                  Login
+                </Button>
+              </div>
+
+              <a href="/login" className="text-center text-sm text-blue-700 ">
                 Already have an account?
               </a>
-            </div>
-          </form>
+            </form>
+          </div>
         </div>
       </div>
     </div>

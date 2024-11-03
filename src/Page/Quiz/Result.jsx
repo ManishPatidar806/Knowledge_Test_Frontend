@@ -20,7 +20,7 @@ const Result = () => {
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (percentage / 100) * circumference;
   return (
-    <div className="flex items-center justify-center min-h-screen bg-gray-950">
+    <div className="flex items-center justify-center min-h-screen "style={{ backgroundColor: "#EEF2FF" }}>
       <div className="bg-gray-900 text-white p-8 rounded-lg shadow-lg w-96">
         <div className="text-center">
           <div className="text-2xl font-bold mb-2">

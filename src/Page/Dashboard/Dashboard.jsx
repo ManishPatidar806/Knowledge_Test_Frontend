@@ -9,40 +9,29 @@ const Dashboard = () => {
     console.log("BUTTON CLICKED");
   };
 
-  const myStyle = {
-    backgroundImage:
-      "url(https://images.pexels.com/photos/4816921/pexels-photo-4816921.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1)",
-
-    backgroundSize: "cover",
-    backgroundPosition: "center",
-    height: "100vh",
-    width: "100vw",
-    position: "absolute",
-    top: 0,
-    left: 0,
-    zIndex: -1,
-  };
-
   return (
-    <div className="top-0 left-0 w-[100%] flex justify-start ">
-      <div style={myStyle}>
-        <div className="h-90 text-white text-center pt-36">
-          <span>
-            Lorem ipsum dolor sit amet consectetur, adipisicing elit. Voluptates
-            dolor, cupiditate unde consectetur ex commodi a labore quidem autem
-            sint vitae repellendus, veniam maiores architecto magni! Molestiae
-            iste hic odit. Deleniti doloribus amet, reprehenderit est unde sint,
-            saepe alias consequatur perspiciatis debitis porro distinctio,
-            aperiam culpa. Repudiandae, perspiciatis, aspernatur, quidem
-            consectetur exercitationem ea facilis labore enim nihil placeat
-            recusandae sed! Odit porro assumenda eveniet mollitia officiis,
-            obcaecati fugiat ea, reiciendis fugit vel voluptatum corrupti
-            blanditiis natus iure? Ad at soluta, omnis
-          </span>
-          <br></br>
-
-          <Button className="justify-center m-10" onClick={handleRedirect}>
-            Let's Go
+    <div
+      className="top-0 left-0 min-w-screen flex justify-center items-center  min-h-screen "
+      style={{ backgroundColor: "#EEF2FF" }}
+    >
+      <div className="text-7xl ">
+      <div className="flex justify-center">
+        <img
+          src="https://res.cloudinary.com/dgmsfmeaz/image/upload/v1730374286/KnowledgeTest/mubfwt8ure39b34fnqiz.png"
+          height="auto"
+          width="auto"
+        /></div>
+        Welcome to the Knowledge Test
+        <br></br>
+        <div className="flex justify-center">
+          <Button
+            className="m-10 p-5 h-12 w-auto text-2xl  "
+            onClick={handleRedirect}
+          >
+            <span>
+              <strong>Let's Go </strong>{" "}
+            </span>
+            <i className="fas fa-arrow-right ml-2 "></i>
           </Button>
         </div>
       </div>

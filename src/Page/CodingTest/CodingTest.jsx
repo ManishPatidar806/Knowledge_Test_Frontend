@@ -1,5 +1,5 @@
 const CodingTest = () => {
-    return <>ContactUs</>;
+    return <>Coding</>;
   };
   
   export default CodingTest;

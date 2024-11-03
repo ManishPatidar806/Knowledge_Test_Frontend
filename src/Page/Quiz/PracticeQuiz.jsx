@@ -17,17 +17,21 @@ const PracticeQuiz = () => {
       const token = localStorage.getItem("token");
       const type = localStorage.getItem("type");
 
-      const response = await fetch(`http://localhost:8080/quiz/practicequestion?type=${encodeURIComponent(type)}`, {
-        method: "get",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-        
-      });
+      const response = await fetch(
+        `http://localhost:8080/quiz/practicequestion?type=${encodeURIComponent(
+          type
+        )}`,
+        {
+          method: "get",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (response.ok) {
         const data = await response.json().then((data) => {
-          console.log("Data is",data);
+          console.log("Data is", data);
           setQuestion(data);
         });
       }
@@ -48,7 +52,7 @@ const PracticeQuiz = () => {
       setMarks((prevMarks) => prevMarks + 1);
     }
     setTotalQuestion((prev) => prev + 1);
-    if (totalquestion + 1 === 5) {
+    if (totalquestion + 1 === 10) {
       console.log(marks + 1);
 
       localStorage.setItem("marks", marks + 1);
@@ -61,12 +65,16 @@ const PracticeQuiz = () => {
   };
 
   return (
-    <div className="bg-black h-100vh">
-      <Navbar />
-      <h1 className="text-xl text-black">Topic Name </h1>
+    <div className="min-h-screen" style={{ backgroundColor: "#EEF2FF" }}>
+     <diV className="py-[3%]">
+        <Navbar />
+      </diV>
+      <h1 className="text-3xl text-center text-black ">
+       Quiz : <strong className="text-3xl text-purple-600">{currentQuestion?.type.toUpperCase()} </strong>
+      </h1>
 
-      <div className=" bg-gray-900 flex justify-center items-center m-10 pb-10 rounded-lg shadow-gray-800 shadow-lg">
-        <div className=" w-[50%] h-96">
+      <div className=" bg-gray-900 xl:mx-[10%] 2xl:mx-[15%] flex flex-col md:flex-row justify-center items-center m-10 pb-10 rounded-lg shadow-gray-800 shadow-lg">
+        <div className=" md:w-[50%] w-[90%]  h-96">
           <div className="m-[10%]   ">
             <div className="mb-4 flex justify-between">
               <p className="text-sm text-start text-gray-400">
@@ -81,7 +89,7 @@ const PracticeQuiz = () => {
             </div>
           </div>
         </div>
-        <div className="w-[50%] pt-10 p-3 mr-16 mt-6 text-white h-96">
+        <div className="md:w-[50%] w-[90%]  pt-10 p-3 md:mr-16 mt-6 text-white h-96">
           <div className="space-y-5">
             {currentQuestion?.options?.map((option, index) => (
               <div key={index}>

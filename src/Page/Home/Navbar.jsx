@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 const Navbar = () => {
   const menu = [
     {
-      name: "Home",
+      name: "Quizs",
       path: "/home",
     },
     {
@@ -13,8 +13,8 @@ const Navbar = () => {
       path: "/notes",
     },
     {
-      name: "DSA Sheets",
-      path: "/sheet",
+      name: "Tutorial",
+      path: "/tutorial",
     },
 
     {
@@ -35,10 +35,10 @@ const Navbar = () => {
     console.log("path is executed");
   }
 
-  return (
+  return ( //E8eAff
     <div className=" flex justify-center">
-      <div className=" list-none w-[50%] rounded-full bg-slate-500 ">
-        <div className="m-3 flex justify-evenly ">
+      <div className=" list-none md:w-[50%] rounded-full  bg-white" >
+        <div className="m-3 sm:flex justify-evenly ">
           {menu.map((item, i) => (
             <Button
               variant="link"
