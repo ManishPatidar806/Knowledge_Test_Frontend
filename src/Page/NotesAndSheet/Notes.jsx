@@ -8,9 +8,9 @@ const Notes = () => {
 
   return (
     <div style={{ backgroundColor: "#EEF2FF" }}>
-      <diV className="py-[3%]">
+      <div className="py-[3%]">
         <Navbar />
-      </diV>
+      </div>
 
       <div
         className="grid  grid-cols-1   lg:grid-cols-3 2xl:grid-cols-4

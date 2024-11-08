@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 
 const Signup = () => {
   const navigate = useNavigate();
-  const { message, setMessage } = useState();
+  const [message, setMessage] = useState("");
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -18,7 +18,7 @@ const Signup = () => {
       description: event.target.description.value,
     };
     try {
-      const response = await fetch("http://localhost:8080/auth/signin", {
+      const response = await fetch("http://localhost:8080/auth/signup", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -30,6 +30,7 @@ const Signup = () => {
       const responsedata = await response.json();
       if (!response.status) {
         setMessage(responsedata.message);
+
         console.log(responsedata.message);
 
         throw new Error("Network response was not ok");
@@ -42,9 +43,13 @@ const Signup = () => {
       localStorage.setItem("description", responsedata.description);
       if (responsedata.jwt != null) {
         setMessage("Register Successfully");
+        console.log("Register Successfully");
+
         navigate("/home");
       } else {
-        setMessage("Register falied ");
+        console.log("Register falied! Try again");
+
+        setMessage("Register falied! Try again");
       }
     } catch (error) {
       console.log("Error", error);
@@ -142,7 +147,8 @@ const Signup = () => {
                   <input
                     type="checkbox"
                     className="form-checkbox text-blue-500 bg-gray-700 border-gray-600 rounded focus:ring-2 focus:ring-blue-500"
-                  />
+                  required
+                 />
                   <span className="ml-2 text-black  text-sm">
                     I accept the{" "}
                     <a href="#" className="text-black">
@@ -152,7 +158,7 @@ const Signup = () => {
                 </label>
               </div>
 
-              <div className="text-black"> {message != null && message}</div>
+              <div className="text-red-500">{message}</div>
               <div className="mb-4">
                 <Button
                   className="btn btn-primary w-full text-white py-2 rounded  transition-transform active:translate-y-1"

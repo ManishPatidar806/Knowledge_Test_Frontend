@@ -6,9 +6,9 @@ import { useNavigate } from "react-router-dom";
 const Tutorial = () => {
   return (
     <div style={{ backgroundColor: "#EEF2FF" }}>
-      <diV className="py-[3%]">
+      <div className="py-[3%]">
         <Navbar />
-      </diV>
+      </div>
 
       <div
         className="grid  grid-cols-1   lg:grid-cols-3 2xl:grid-cols-4
@@ -29,7 +29,7 @@ const Tutorial = () => {
             />
             <div className="px-6 py-4 pb-7 text-start ">
               <div className="font-bold text-xl text-black mb-2">
-                Language/Technology : {item.name}
+                Content: {item.name}
               </div>
               <p className="text-gray-900 text-base">
                 Channel : {item.channel}

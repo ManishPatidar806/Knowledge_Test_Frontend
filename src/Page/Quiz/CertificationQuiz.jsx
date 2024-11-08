@@ -17,6 +17,9 @@ const CertificationQuiz = () => {
       const token = localStorage.getItem("token");
       const type = localStorage.getItem("type");
 
+      console.log(type);
+      
+
       const response = await fetch(
         `http://localhost:8080/quiz/certificatequiz?type=${type}`,
         {
@@ -46,12 +49,25 @@ const CertificationQuiz = () => {
     setChecked(option);
   }
 
-  const handleSubmit = () => {
-    if (submitedAnswer === currentQuestion?.answer) {
+  const handleSubmit = async () => {
+    const token = localStorage.getItem("token");
+    const response = await fetch(
+      `http://localhost:8080/quiz/checkcertificateanswer?answer=${encodeURIComponent(
+        currentQuestion?.answer
+      )}&id=${encodeURIComponent(currentQuestion?.questionId)}`,
+      {
+        method: "get",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response) {
       setMarks((prevMarks) => prevMarks + 1);
     }
     setTotalQuestion((prev) => prev + 1);
-    if (totalquestion + 1 === 30) {
+    if (totalquestion + 1 === 2) {
       console.log(marks + 1);
       localStorage.setItem("marks", marks);
       localStorage.setItem("totalQuestion", totalquestion + 1);
@@ -59,42 +75,8 @@ const CertificationQuiz = () => {
       let percentage = ((marks + 1) / (totalquestion + 1)) * 100;
       console.log("Percentage is ", percentage);
 
-      if (percentage >= 80.0) {
-        const fetchpdf = async () => {
-          const token = localStorage.getItem("token");
-          try {
-            const response = await fetch(
-              `http://localhost:8080/generate-certificate`,
-              {
-                method: "get",
-                headers: {
-                  Authorization: `Bearer ${token}`,
-                },
-              }
-            );
-            if (!response.ok) {
-              // Handle the error properly.  Don't just throw a generic message.
-              const errorData = await response
-                .json()
-                .catch(() => ({ message: "Unknown error" })); // Try to parse error response
-              const errorMessage = errorData.message || "Server error"; // Provide a more descriptive error message
-              throw new Error(
-                `HTTP error! status: ${response.status}, message: ${errorMessage}`
-              );
-            }
-
-            const blob = await response.blob();
-            const url = window.URL.createObjectURL(blob);
-            window.open(url, "_blank"); // Open the PDF in a new tab
-            window.URL.revokeObjectURL(url);
-            // Release memory
-          } catch (error) {
-            console.error("Error generating certificate:", error);
-            // Display a user-friendly error message to the user
-            // e.g., alert(error.message) or update the UI
-          }
-        };
-        fetchpdf();
+      if (percentage >= 0.0) {
+        navigate("/exampassed");
       } else {
         navigate("/failed");
       }
@@ -106,11 +88,14 @@ const CertificationQuiz = () => {
 
   return (
     <div className=" min-h-screen" style={{ backgroundColor: "#EEF5FF" }}>
-      <diV className="py-[3%]">
+      <div className="py-[3%]">
         <Navbar />
-      </diV>
+      </div>
       <h1 className="text-3xl text-center text-black ">
-       Quiz : <strong className="text-3xl text-purple-600">{currentQuestion?.type.toUpperCase()} </strong>
+        Quiz :{" "}
+        <strong className="text-3xl text-purple-600">
+          {currentQuestion?.type.toUpperCase()}{" "}
+        </strong>
       </h1>
 
       <div className=" bg-gray-900 xl:mx-[10%] 2xl:mx-[15%] flex flex-col md:flex-row justify-center items-center m-10 pb-10 rounded-lg shadow-gray-800 shadow-lg">
@@ -120,7 +105,6 @@ const CertificationQuiz = () => {
               <p className="text-sm text-start text-gray-400">
                 Question {totalquestion + 1} of 30
               </p>
-              <p className="text-sm text-start text-green-400">2:00:21</p>
             </div>
             <div className="mb-6">
               <p className="text-lg font-semibold text-white text-left">
@@ -157,7 +141,7 @@ const CertificationQuiz = () => {
           </div>
           <div className="mt-6 flex justify-end">
             <Button onClick={handleSubmit} className="w-[40%]">
-              Submit answer
+              Submit 
             </Button>
           </div>
         </div>

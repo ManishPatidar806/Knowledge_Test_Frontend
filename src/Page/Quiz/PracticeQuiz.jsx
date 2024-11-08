@@ -47,8 +47,21 @@ const PracticeQuiz = () => {
     setChecked(option);
   }
 
-  const handleSubmit = () => {
-    if (submitedAnswer === currentQuestion?.answer) {
+  const handleSubmit = async () => {
+    const token = localStorage.getItem("token");
+    const response = await fetch(
+      `http://localhost:8080/quiz/checkpracticeanswer?answer=${encodeURIComponent(
+        currentQuestion?.answer
+      )}&id=${encodeURIComponent(currentQuestion?.questionId)}`,
+      {
+        method: "get",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    if (response) {
       setMarks((prevMarks) => prevMarks + 1);
     }
     setTotalQuestion((prev) => prev + 1);
@@ -66,11 +79,14 @@ const PracticeQuiz = () => {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#EEF2FF" }}>
-     <diV className="py-[3%]">
+      <div className="py-[3%]">
         <Navbar />
-      </diV>
+      </div>
       <h1 className="text-3xl text-center text-black ">
-       Quiz : <strong className="text-3xl text-purple-600">{currentQuestion?.type.toUpperCase()} </strong>
+        Quiz :{" "}
+        <strong className="text-3xl text-purple-600">
+          {currentQuestion?.type.toUpperCase()}{" "}
+        </strong>
       </h1>
 
       <div className=" bg-gray-900 xl:mx-[10%] 2xl:mx-[15%] flex flex-col md:flex-row justify-center items-center m-10 pb-10 rounded-lg shadow-gray-800 shadow-lg">
@@ -78,9 +94,9 @@ const PracticeQuiz = () => {
           <div className="m-[10%]   ">
             <div className="mb-4 flex justify-between">
               <p className="text-sm text-start text-gray-400">
-                Question {totalquestion + 1} of 5
+                Question {totalquestion + 1} of 10
               </p>
-              <p className="text-sm text-start text-green-400">2:00:21</p>
+             
             </div>
             <div className="mb-6">
               <p className="text-lg font-semibold text-white text-left">
@@ -117,7 +133,7 @@ const PracticeQuiz = () => {
           </div>
           <div className="mt-6 flex justify-end">
             <Button onClick={handleSubmit} className="w-[40%]">
-              Submit answer
+              Submit 
             </Button>
           </div>
         </div>

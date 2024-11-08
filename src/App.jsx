@@ -19,6 +19,7 @@ import CertificationQuiz from "./Page/Quiz/CertificationQuiz";
 import PracticeQuiz from "./Page/Quiz/PracticeQuiz";
 import Tutorial from "./Page/NotesAndSheet/Tutorial";
 import Failed from "./Page/Quiz/Failed";
+import ExamPassed from "./Page/Quiz/ExamPassed";
 
 function App() {
   const token = localStorage.getItem("token");
@@ -39,6 +40,7 @@ function App() {
             <Route path="/profile" element={[<Profile />]} />
             <Route path="/codingtest" element={[<ComingSoon />]} />
             <Route path="/failed" element={<Failed />} />
+            <Route path="/exampassed" element={<ExamPassed />} />
             <Route path="/practicequiz" element={<PracticeQuiz />} />
             <Route path="/certificationquiz" element={<CertificationQuiz />} />
           </>

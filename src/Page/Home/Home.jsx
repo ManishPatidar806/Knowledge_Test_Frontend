@@ -25,9 +25,9 @@ const Home = () => {
 
   return (
     <div style={{ backgroundColor: "#EEF2FF" }}>
-      <diV className="py-[3%]">
+      <div className="py-[3%]">
         <Navbar />
-      </diV>
+      </div>
 
       <div
         className="grid  grid-cols-1   lg:grid-cols-3 2xl:grid-cols-4
@@ -38,7 +38,7 @@ const Home = () => {
         {Data.map((item, i) => (
           <div
             key={i}
-            className="max-w-sm m-5 pb-5 rounded overflow-hidden shadow-lg  bg-blue-100 text-white relative"
+            className="max-w-sm m-5 pb-5  rounded overflow-hidden shadow-lg  bg-blue-100 text-white relative"
           >
             <img
               className="w-full h-[40%]"
@@ -51,8 +51,7 @@ const Home = () => {
               </div>
               <p className="text-black text-base">{item.description}</p>
             </div>
-           <div className="absolute w-full bottom-0">
-       
+            <div className="absolute w-full bottom-0">
               <div className="px-6 pt-4 pb-5 flex justify-between ">
                 <button
                   className="bg-purple-600  hover:bg-purple-700 text-white font-bold py-2 px-4 rounded  "
@@ -61,7 +60,6 @@ const Home = () => {
                   }}
                 >
                   <span>Practice</span>
-                  <i className="fas fa-arrow-right ml-2"></i>
                 </button>
                 <button
                   className="bg-purple-600  hover:bg-purple-700 text-white font-bold py-2 px-4 rounded  "
@@ -70,10 +68,9 @@ const Home = () => {
                   }}
                 >
                   <span>Exam</span>
-                  <i className="fas fa-arrow-right ml-2"></i>
                 </button>
               </div>
-              </div>
+            </div>
           </div>
         ))}
       </div>
