@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Prevent from "../Auth/Prevent";
 
 const Failed = () => {
   const score = localStorage.getItem("marks");
-  const totalQuestion = localStorage.getItem("totalQuestion");
   const naviagte = useNavigate();
-  const [percentage, setPercentage] = useState(0);
+  const percentage = localStorage.getItem("percentage");
 
   function execute() {
     naviagte("/home");
@@ -16,6 +16,7 @@ const Failed = () => {
       className="flex items-center justify-center min-h-screen "
       style={{ backgroundColor: "#EEF2FF" }}
     >
+      <Prevent/>
       <div className="bg-gray-900 text-white p-8 rounded-lg shadow-lg w-96">
         <div className="text-center">
           <div className="text-2xl font-bold mb-2">

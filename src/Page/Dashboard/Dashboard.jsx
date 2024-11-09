@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
+import Prevent from "../Auth/Prevent";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -21,11 +22,12 @@ const Dashboard = () => {
       className="top-0 left-0 min-w-screen flex justify-center items-center  min-h-screen bg-cover bg-center "
       style={mystyle}
     >
+      <Prevent/>
       <div className="   min-h-fit py-[2%] my-[3%] bg-black opacity-80  ">
         <div className="text-8xl text-white ">
           <div className="text-center ">
             Welcome to the
-            <span className="text-purple-600 "> Knowledge Test </span>
+            <span className="text-purple-600 "> MANTHAN </span>
           </div>
           <div className="text-2xl mt-8 mx-[7%] text-center ">
             The ultimate WebApplication for coding enthusiasts and aspiring

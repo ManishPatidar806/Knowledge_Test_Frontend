@@ -1,33 +1,33 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Prevent from "../Auth/Prevent";
 
 const Result = () => {
   const score = localStorage.getItem("marks");
   const totalQuestion = localStorage.getItem("totalQuestion");
   const naviagte = useNavigate();
-  const [percentage, setPercentage] = useState(0);
+  const percentage = localStorage.getItem("percentage");
 
   function execute() {
     naviagte("/home");
   }
 
-  useEffect(() => {
-    if (score && totalQuestion) {
-      setPercentage((score / totalQuestion) * 100);
-    }
-  }, [score, totalQuestion]);
   const radius = 30;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (percentage / 100) * circumference;
   return (
-    <div className="flex items-center justify-center min-h-screen "style={{ backgroundColor: "#EEF2FF" }}>
+    <div
+      className="flex items-center justify-center min-h-screen "
+      style={{ backgroundColor: "#EEF2FF" }}
+    >
+      <Prevent/>
       <div className="bg-gray-900 text-white p-8 rounded-lg shadow-lg w-96">
         <div className="text-center">
           <div className="text-2xl font-bold mb-2">
             <span role="img" aria-label="party popper">
               🎉
             </span>{" "}
-            Congratulations. You passed!
+            Congratulations!
           </div>
           <p className="text-gray-400 ">
             You are successfully completed the quiz. Now you click on finish and
@@ -70,7 +70,6 @@ const Result = () => {
                 {percentage}% ({score} points)
               </span>
             </p>
-            <p>Passing Score: 75%</p>
           </div>
           <div className="flex justify-center space-x-4">
             <button

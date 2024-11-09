@@ -8,7 +8,7 @@ const Profile = () => {
 
   const executionLogout = () => {
     localStorage.clear();
-    navigate("/login");
+    navigate("/");
   };
 
   return (

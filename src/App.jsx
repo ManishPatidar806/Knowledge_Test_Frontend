@@ -32,7 +32,7 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         {token != null ? (
           <>
-            {/* Navbar ka kam abhe baki he */}
+           
             <Route path="/home" element={[<Home />]} />
             <Route path="/notes" element={[<Notes />]} />
             <Route path="/result" element={[<Result />]} />

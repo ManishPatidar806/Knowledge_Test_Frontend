@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import Navbar from "../Home/Navbar";
 import { useNavigate } from "react-router-dom";
+import Prevent from "../Auth/Prevent";
 
 const PracticeQuiz = () => {
   const [question, setQuestion] = useState([]);
@@ -51,7 +52,7 @@ const PracticeQuiz = () => {
     const token = localStorage.getItem("token");
     const response = await fetch(
       `http://localhost:8080/quiz/checkpracticeanswer?answer=${encodeURIComponent(
-        currentQuestion?.answer
+        checked
       )}&id=${encodeURIComponent(currentQuestion?.questionId)}`,
       {
         method: "get",
@@ -60,16 +61,18 @@ const PracticeQuiz = () => {
         },
       }
     );
+    const data = await response.json();
 
-    if (response) {
+    if (data) {
       setMarks((prevMarks) => prevMarks + 1);
     }
     setTotalQuestion((prev) => prev + 1);
     if (totalquestion + 1 === 10) {
-      console.log(marks + 1);
-
-      localStorage.setItem("marks", marks + 1);
+      localStorage.setItem("marks", marks);
       localStorage.setItem("totalQuestion", totalquestion + 1);
+
+      let percentage = (marks / (totalquestion + 1)) * 100;
+      localStorage.setItem("percentage", percentage);
       navigate("/result");
     }
     setCurrentQuestionIndex((prev) => prev + 1);
@@ -79,6 +82,7 @@ const PracticeQuiz = () => {
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#EEF2FF" }}>
+      <Prevent/>
       <div className="py-[3%]">
         <Navbar />
       </div>
@@ -96,7 +100,6 @@ const PracticeQuiz = () => {
               <p className="text-sm text-start text-gray-400">
                 Question {totalquestion + 1} of 10
               </p>
-             
             </div>
             <div className="mb-6">
               <p className="text-lg font-semibold text-white text-left">
@@ -133,7 +136,7 @@ const PracticeQuiz = () => {
           </div>
           <div className="mt-6 flex justify-end">
             <Button onClick={handleSubmit} className="w-[40%]">
-              Submit 
+              Submit
             </Button>
           </div>
         </div>

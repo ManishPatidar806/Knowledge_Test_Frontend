@@ -1,11 +1,75 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import ReactCanvasConfetti from "react-canvas-confetti";
+import Prevent from "../Auth/Prevent";
+
+const canvasStyles = {
+  position: "fixed",
+  pointerEvents: "none",
+  width: "100%",
+  height: "100%",
+  top: 0,
+  left: 0,
+};
+
+let animationInstance = null;
+
 const ExamPassed = () => {
   const score = localStorage.getItem("marks");
   const totalQuestion = localStorage.getItem("totalQuestion");
   const naviagte = useNavigate();
   const [percentage, setPercentage] = useState(0);
+
+  const makeShot = (particleRatio, opts) => {
+    animationInstance &&
+      animationInstance({
+        ...opts,
+        origin: { y: 0.7 },
+        particleCount: Math.floor(2500 * particleRatio),
+      });
+  };
+
+  const fire = () => {
+    makeShot(0.25, {
+      spread: 26,
+      startVelocity: 55,
+      decay: 0.95,  
+      duration: 2000,
+    });
+
+    makeShot(0.2, {
+      spread: 60,
+      decay: 0.95, 
+      duration: 2000,
+    });
+
+    makeShot(0.35, {
+      spread: 100,
+      decay: 0.91,
+      scalar: 0.8,
+      duration: 2500,
+    });
+
+    makeShot(0.1, {
+      spread: 120,
+      startVelocity: 25,
+      decay: 0.92,
+      scalar: 1.2,  
+      duration: 2500,
+    });
+
+    makeShot(0.1, {
+      spread: 120,
+      startVelocity: 45,
+      decay: 0.95,  
+      duration: 3000,
+    });
+  };
+
+  const getInstance = (instance) => {
+    animationInstance = instance;
+  };
 
   function execute() {
     naviagte("/home");
@@ -49,6 +113,7 @@ const ExamPassed = () => {
     if (score && totalQuestion) {
       setPercentage((score / totalQuestion) * 100);
     }
+    fire();
   }, [score, totalQuestion]);
   const radius = 30;
   const circumference = 2 * Math.PI * radius;
@@ -58,6 +123,7 @@ const ExamPassed = () => {
       className="flex items-center justify-center min-h-screen "
       style={{ backgroundColor: "#EEF2FF" }}
     >
+      <Prevent/>
       <div className="bg-gray-900 text-white p-8 rounded-lg shadow-lg w-96">
         <div className="text-center">
           <div className="text-2xl font-bold mb-2">
@@ -108,7 +174,7 @@ const ExamPassed = () => {
                 {percentage}% ({score} points)
               </span>
             </p>
-            <p>Passing Score: 75%</p>
+            <p>Passing Score: 80%</p>
           </div>
           <div className="flex justify-evenly space-x-4">
             <button
@@ -127,6 +193,8 @@ const ExamPassed = () => {
           </div>
         </div>
       </div>
+
+      <ReactCanvasConfetti refConfetti={getInstance} style={canvasStyles} />
     </div>
   );
 };

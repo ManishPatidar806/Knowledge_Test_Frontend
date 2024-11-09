@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import Navbar from "../Home/Navbar";
 import { useNavigate } from "react-router-dom";
+import Prevent from "../Auth/Prevent";
 
 const CertificationQuiz = () => {
   const [question, setQuestion] = useState([]);
@@ -18,10 +19,11 @@ const CertificationQuiz = () => {
       const type = localStorage.getItem("type");
 
       console.log(type);
-      
 
       const response = await fetch(
-        `http://localhost:8080/quiz/certificatequiz?type=${type}`,
+        `http://localhost:8080/quiz/certificatequiz?type=${encodeURIComponent(
+          type
+        )}`,
         {
           method: "get",
           headers: {
@@ -53,7 +55,7 @@ const CertificationQuiz = () => {
     const token = localStorage.getItem("token");
     const response = await fetch(
       `http://localhost:8080/quiz/checkcertificateanswer?answer=${encodeURIComponent(
-        currentQuestion?.answer
+        checked
       )}&id=${encodeURIComponent(currentQuestion?.questionId)}`,
       {
         method: "get",
@@ -63,17 +65,18 @@ const CertificationQuiz = () => {
       }
     );
 
-    if (response) {
+    const answer = await response.json();
+
+    if (answer) {
       setMarks((prevMarks) => prevMarks + 1);
     }
     setTotalQuestion((prev) => prev + 1);
-    if (totalquestion + 1 === 2) {
-      console.log(marks + 1);
+    if (totalquestion + 1 === 1) {
       localStorage.setItem("marks", marks);
       localStorage.setItem("totalQuestion", totalquestion + 1);
 
-      let percentage = ((marks + 1) / (totalquestion + 1)) * 100;
-      console.log("Percentage is ", percentage);
+      let percentage = (marks / (totalquestion + 1)) * 100;
+      localStorage.setItem("percentage", percentage);
 
       if (percentage >= 0.0) {
         navigate("/exampassed");
@@ -88,6 +91,7 @@ const CertificationQuiz = () => {
 
   return (
     <div className=" min-h-screen" style={{ backgroundColor: "#EEF5FF" }}>
+      <Prevent/>
       <div className="py-[3%]">
         <Navbar />
       </div>
@@ -99,7 +103,7 @@ const CertificationQuiz = () => {
       </h1>
 
       <div className=" bg-gray-900 xl:mx-[10%] 2xl:mx-[15%] flex flex-col md:flex-row justify-center items-center m-10 pb-10 rounded-lg shadow-gray-800 shadow-lg">
-        <div className=" md:w-[50%] w-[90%] h-96">
+        <div className=" md:w-[50%] w-[90%] lg:h-96">
           <div className="m-[10%]   ">
             <div className="mb-4 flex justify-between">
               <p className="text-sm text-start text-gray-400">
@@ -113,7 +117,7 @@ const CertificationQuiz = () => {
             </div>
           </div>
         </div>
-        <div className="md:w-[50%] w-[90%] pt-10 p-3 md:mr-16 mt-6 text-white h-96">
+        <div className="md:w-[50%] w-[90%] pt-10 p-3 md:mr-16 mt-6 text-white lg:h-96">
           <div className="space-y-5">
             {currentQuestion?.options?.map((option, index) => (
               <div key={index}>
@@ -141,7 +145,7 @@ const CertificationQuiz = () => {
           </div>
           <div className="mt-6 flex justify-end">
             <Button onClick={handleSubmit} className="w-[40%]">
-              Submit 
+              Submit
             </Button>
           </div>
         </div>

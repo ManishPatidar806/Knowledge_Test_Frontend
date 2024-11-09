@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import Data from "../data/QuizData";
+import Prevent from "../Auth/Prevent";
 
 const Home = () => {
   const navigate = useNavigate();
@@ -25,6 +26,7 @@ const Home = () => {
 
   return (
     <div style={{ backgroundColor: "#EEF2FF" }}>
+      <Prevent/>
       <div className="py-[3%]">
         <Navbar />
       </div>
