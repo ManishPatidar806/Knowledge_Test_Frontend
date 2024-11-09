@@ -25,11 +25,10 @@ const ExamPassed = () => {
           }
         );
         if (!response.ok) {
-          // Handle the error properly.  Don't just throw a generic message.
           const errorData = await response
             .json()
-            .catch(() => ({ message: "Unknown error" })); // Try to parse error response
-          const errorMessage = errorData.message || "Server error"; // Provide a more descriptive error message
+            .catch(() => ({ message: "Unknown error" }));
+          const errorMessage = errorData.message || "Server error";
           throw new Error(
             `HTTP error! status: ${response.status}, message: ${errorMessage}`
           );
@@ -37,13 +36,10 @@ const ExamPassed = () => {
 
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
-        window.open(url, "_blank"); // Open the PDF in a new tab
+        window.open(url, "_blank");
         window.URL.revokeObjectURL(url);
-        // Release memory
       } catch (error) {
         console.error("Error generating certificate:", error);
-        // Display a user-friendly error message to the user
-        // e.g., alert(error.message) or update the UI
       }
     };
     fetchpdf();

@@ -35,7 +35,7 @@ const Navbar = () => {
     console.log("path is executed");
   }
 
-  return ( //E8eAff
+  return ( 
     <div className=" flex justify-center">
       <div className=" list-none md:w-[50%] rounded-full  bg-white" >
         <div className="m-3 sm:flex justify-evenly ">
