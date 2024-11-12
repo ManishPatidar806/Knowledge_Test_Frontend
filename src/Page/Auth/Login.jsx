@@ -17,10 +17,11 @@ const Login = () => {
       password: event.target.password.value,
     };
 
+    const url = import.meta.env.VITE_API_URL
     try {
       
       const response = await fetch(
-        `${import.meta.env.VITE_API_URL}/auth/login`,
+        `${url}/auth/login`,
         {
           method: "POST",
           headers: {
