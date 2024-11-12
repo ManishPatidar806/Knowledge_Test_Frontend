@@ -43,7 +43,7 @@ const Shape = () => {
 
 const NotFound = () => {
 	return (
-		<section className="ezy__httpcodes4 dark py-48 md:py-80  dark:bg-[#0b1727] text-[#04004d] dark:text-white relative overflow-hidden z-[1]" style={{ backgroundColor: "#EEF2FF" }}>
+		<section className="ezy__httpcodes4 dark py-48 md:py-80  dark:bg-[#0b1727] text-[#04004d] dark:text-white relative overflow-hidden z-[1] min-h-screen" style={{ backgroundColor: "#EEF2FF" }}>
 			<Shape />
 
 			<div className="container px-4 mx-auto">

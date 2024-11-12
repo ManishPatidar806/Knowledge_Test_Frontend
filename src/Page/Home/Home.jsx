@@ -1,4 +1,3 @@
-import { Button } from "@/components/ui/button";
 import { useNavigate } from "react-router-dom";
 import Navbar from "./Navbar";
 import Data from "../data/QuizData";
@@ -8,12 +7,11 @@ const Home = () => {
   const navigate = useNavigate();
 
   function executionPractice(type) {
-    console.log(`Data is ${Data}`);
-
+    
     localStorage.removeItem("type");
     localStorage.setItem("type", type);
     navigate("/practicequiz");
-    console.log("Clicked is work");
+    
   }
 
   function executionCertificate(type) {
@@ -21,12 +19,12 @@ const Home = () => {
     localStorage.setItem("type", type);
 
     navigate("/certificationquiz");
-    console.log("Clicked is work");
+    
   }
 
   return (
     <div style={{ backgroundColor: "#EEF2FF" }}>
-      <Prevent/>
+      <Prevent />
       <div className="py-[3%]">
         <Navbar />
       </div>

@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../Home/Navbar";
 import { useNavigate } from "react-router-dom";
 import Prevent from "../Auth/Prevent";
+import Loading from "../Loading/Loading";
 
 const CertificationQuiz = () => {
   const [question, setQuestion] = useState([]);
@@ -12,16 +13,19 @@ const CertificationQuiz = () => {
   const [submitedAnswer, setSubmitedAnswer] = useState("");
   const navigate = useNavigate();
   const [checked, setChecked] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     const fetchdata = async () => {
       const token = localStorage.getItem("token");
       const type = localStorage.getItem("type");
 
-      console.log(type);
-
+      
       const response = await fetch(
-        `http://localhost:8080/quiz/certificatequiz?type=${encodeURIComponent(
+        `${
+          import.meta.env.VITE_API_URL
+        }/quiz/certificatequiz?type=${encodeURIComponent(
           type
         )}`,
         {
@@ -34,8 +38,8 @@ const CertificationQuiz = () => {
 
       if (response.ok) {
         const data = await response.json().then((data) => {
-          console.log("Data is", data);
-
+         
+          setIsLoading(false);
           setQuestion(data);
         });
       }
@@ -52,9 +56,12 @@ const CertificationQuiz = () => {
   }
 
   const handleSubmit = async () => {
+    setIsLoading(true);
     const token = localStorage.getItem("token");
     const response = await fetch(
-      `http://localhost:8080/quiz/checkcertificateanswer?answer=${encodeURIComponent(
+      `${
+        import.meta.env.VITE_API_URL
+      }/quiz/checkcertificateanswer?answer=${encodeURIComponent(
         checked
       )}&id=${encodeURIComponent(currentQuestion?.questionId)}`,
       {
@@ -70,15 +77,17 @@ const CertificationQuiz = () => {
     if (answer) {
       setMarks((prevMarks) => prevMarks + 1);
     }
+    setIsLoading(false);
     setTotalQuestion((prev) => prev + 1);
-    if (totalquestion + 1 === 1) {
+    if (totalquestion + 1 === 20) {
+      setIsLoading(true);
       localStorage.setItem("marks", marks);
       localStorage.setItem("totalQuestion", totalquestion + 1);
 
       let percentage = (marks / (totalquestion + 1)) * 100;
       localStorage.setItem("percentage", percentage);
-
-      if (percentage >= 0.0) {
+      setIsLoading(false);
+      if (percentage >= 80.0) {
         navigate("/exampassed");
       } else {
         navigate("/failed");
@@ -89,9 +98,13 @@ const CertificationQuiz = () => {
     setSubmitedAnswer("");
   };
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   return (
     <div className=" min-h-screen" style={{ backgroundColor: "#EEF5FF" }}>
-      <Prevent/>
+      <Prevent />
       <div className="py-[3%]">
         <Navbar />
       </div>
@@ -107,7 +120,7 @@ const CertificationQuiz = () => {
           <div className="m-[10%]   ">
             <div className="mb-4 flex justify-between">
               <p className="text-sm text-start text-gray-400">
-                Question {totalquestion + 1} of 30
+                Question {totalquestion + 1} of 20
               </p>
             </div>
             <div className="mb-6">

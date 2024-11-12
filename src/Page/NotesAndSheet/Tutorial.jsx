@@ -1,7 +1,7 @@
-import NotesData from "../data/NotesData";
+
 import TutorialData from "../data/TutorialData";
 import Navbar from "../Home/Navbar";
-import { useNavigate } from "react-router-dom";
+
 
 const Tutorial = () => {
   return (

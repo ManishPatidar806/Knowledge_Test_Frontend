@@ -1,9 +1,7 @@
 import NotesData from "../data/NotesData";
 import Navbar from "../Home/Navbar";
-import { useNavigate } from "react-router-dom";
 
 const Notes = () => {
-  const navigate = useNavigate();
 
   return (
     <div style={{ backgroundColor: "#EEF2FF" }}>

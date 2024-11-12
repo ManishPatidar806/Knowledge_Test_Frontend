@@ -7,7 +7,7 @@ const Dashboard = () => {
 
   const handleRedirect = () => {
     navigate("/login");
-    console.log("BUTTON CLICKED");
+    
   };
 
   const mystyle = {

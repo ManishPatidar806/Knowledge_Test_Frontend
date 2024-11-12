@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import Navbar from "../Home/Navbar";
 import { useNavigate } from "react-router-dom";
 import Prevent from "../Auth/Prevent";
+import Loading from "../Loading/Loading";
 
 const PracticeQuiz = () => {
   const [question, setQuestion] = useState([]);
@@ -12,16 +13,18 @@ const PracticeQuiz = () => {
   const [submitedAnswer, setSubmitedAnswer] = useState("");
   const navigate = useNavigate();
   const [checked, setChecked] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
+    setIsLoading(true);
     const fetchdata = async () => {
       const token = localStorage.getItem("token");
       const type = localStorage.getItem("type");
 
       const response = await fetch(
-        `http://localhost:8080/quiz/practicequestion?type=${encodeURIComponent(
-          type
-        )}`,
+        `${
+          import.meta.env.VITE_API_URL
+        }/quiz/practicequestion?type=${encodeURIComponent(type)}`,
         {
           method: "get",
           headers: {
@@ -34,6 +37,7 @@ const PracticeQuiz = () => {
         const data = await response.json().then((data) => {
           console.log("Data is", data);
           setQuestion(data);
+          setIsLoading(false);
         });
       }
     };
@@ -49,9 +53,12 @@ const PracticeQuiz = () => {
   }
 
   const handleSubmit = async () => {
+    setIsLoading(true);
     const token = localStorage.getItem("token");
     const response = await fetch(
-      `http://localhost:8080/quiz/checkpracticeanswer?answer=${encodeURIComponent(
+      `${
+        import.meta.env.VITE_API_URL
+      }/quiz/checkpracticeanswer?answer=${encodeURIComponent(
         checked
       )}&id=${encodeURIComponent(currentQuestion?.questionId)}`,
       {
@@ -66,7 +73,9 @@ const PracticeQuiz = () => {
     if (data) {
       setMarks((prevMarks) => prevMarks + 1);
     }
+
     setTotalQuestion((prev) => prev + 1);
+    setIsLoading(false);
     if (totalquestion + 1 === 10) {
       localStorage.setItem("marks", marks);
       localStorage.setItem("totalQuestion", totalquestion + 1);
@@ -79,10 +88,13 @@ const PracticeQuiz = () => {
     setChecked(null);
     setSubmitedAnswer("");
   };
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div className="min-h-screen" style={{ backgroundColor: "#EEF2FF" }}>
-      <Prevent/>
+      <Prevent />
       <div className="py-[3%]">
         <Navbar />
       </div>

@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import ReactCanvasConfetti from "react-canvas-confetti";
 import Prevent from "../Auth/Prevent";
+import Loading from "../Loading/Loading";
 
 const canvasStyles = {
   position: "fixed",
@@ -20,6 +21,7 @@ const ExamPassed = () => {
   const totalQuestion = localStorage.getItem("totalQuestion");
   const naviagte = useNavigate();
   const [percentage, setPercentage] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   const makeShot = (particleRatio, opts) => {
     animationInstance &&
@@ -34,13 +36,13 @@ const ExamPassed = () => {
     makeShot(0.25, {
       spread: 26,
       startVelocity: 55,
-      decay: 0.95,  
+      decay: 0.95,
       duration: 2000,
     });
 
     makeShot(0.2, {
       spread: 60,
-      decay: 0.95, 
+      decay: 0.95,
       duration: 2000,
     });
 
@@ -55,14 +57,14 @@ const ExamPassed = () => {
       spread: 120,
       startVelocity: 25,
       decay: 0.92,
-      scalar: 1.2,  
+      scalar: 1.2,
       duration: 2500,
     });
 
     makeShot(0.1, {
       spread: 120,
       startVelocity: 45,
-      decay: 0.95,  
+      decay: 0.95,
       duration: 3000,
     });
   };
@@ -79,6 +81,7 @@ const ExamPassed = () => {
     const fetchpdf = async () => {
       const token = localStorage.getItem("token");
       try {
+        setIsLoading(true);
         const response = await fetch(
           `http://localhost:8080/generate-certificate`,
           {
@@ -88,10 +91,13 @@ const ExamPassed = () => {
             },
           }
         );
+
         if (!response.ok) {
+          setIsLoading(false);
           const errorData = await response
             .json()
             .catch(() => ({ message: "Unknown error" }));
+          
           const errorMessage = errorData.message || "Server error";
           throw new Error(
             `HTTP error! status: ${response.status}, message: ${errorMessage}`
@@ -102,7 +108,11 @@ const ExamPassed = () => {
         const url = window.URL.createObjectURL(blob);
         window.open(url, "_blank");
         window.URL.revokeObjectURL(url);
+       
+
+        setIsLoading(false);
       } catch (error) {
+        setIsLoading(false);
         console.error("Error generating certificate:", error);
       }
     };
@@ -115,6 +125,10 @@ const ExamPassed = () => {
     }
     fire();
   }, [score, totalQuestion]);
+
+  if (isLoading) {
+    return <Loading />;
+  }
   const radius = 30;
   const circumference = 2 * Math.PI * radius;
   const offset = circumference - (percentage / 100) * circumference;
@@ -123,7 +137,7 @@ const ExamPassed = () => {
       className="flex items-center justify-center min-h-screen "
       style={{ backgroundColor: "#EEF2FF" }}
     >
-      <Prevent/>
+      <Prevent />
       <div className="bg-gray-900 text-white p-8 rounded-lg shadow-lg w-96">
         <div className="text-center">
           <div className="text-2xl font-bold mb-2">

@@ -1,12 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Loading from "../Loading/Loading";
 
 const Signup = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event) => {
+    setIsLoading(true);
     event.preventDefault();
     const data = {
       fullname: event.target.fullname.value,
@@ -18,20 +21,21 @@ const Signup = () => {
       description: event.target.description.value,
     };
     try {
-      const response = await fetch("http://localhost:8080/auth/signup", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      console.log(JSON.stringify(data));
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/auth/signup`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       const responsedata = await response.json();
       if (!response.status) {
+        setIsLoading(false);
         setMessage(responsedata.message);
-
-        console.log(responsedata.message);
 
         throw new Error("Network response was not ok");
       }
@@ -43,18 +47,24 @@ const Signup = () => {
       localStorage.setItem("description", responsedata.description);
       if (responsedata.jwt != null) {
         setMessage("Register Successfully");
-        console.log("Register Successfully");
 
         navigate("/home");
       } else {
-        console.log("Register falied! Try again");
+        setIsLoading(false);
 
         setMessage("Register falied! Try again");
       }
     } catch (error) {
-      console.log("Error", error);
+      setIsLoading(false);
+
+      setMessage("Register falied! Try again");
+      throw new Error(error);
     }
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div>
@@ -147,8 +157,8 @@ const Signup = () => {
                   <input
                     type="checkbox"
                     className="form-checkbox text-blue-500 bg-gray-700 border-gray-600 rounded focus:ring-2 focus:ring-blue-500"
-                  required
-                 />
+                    required
+                  />
                   <span className="ml-2 text-black  text-sm">
                     I accept the{" "}
                     <a href="#" className="text-black">

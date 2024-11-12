@@ -1,7 +1,5 @@
 const TutorialData = [
 
-
-
   {
     image: "https://res.cloudinary.com/dgmsfmeaz/image/upload/v1730312942/KnowledgeTest/TutorialPage/mxyx3npfvhqu6jkbbnxp.jpg",
     name: "C",

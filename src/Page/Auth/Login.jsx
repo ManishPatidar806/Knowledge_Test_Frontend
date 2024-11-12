@@ -1,12 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import Loading from "../Loading/Loading";
 
 const Login = () => {
   const navigate = useNavigate();
-  const [ flag, setFlag ] = useState(false);
+  const [flag, setFlag] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleSubmit = async (event) => {
+    setIsLoading(true);
     event.preventDefault();
 
     const data = {
@@ -15,15 +18,20 @@ const Login = () => {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/auth/login", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
+      
+      const response = await fetch(
+        `${import.meta.env.VITE_API_URL}/auth/login`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        }
+      );
 
       if (!response.ok) {
+        setIsLoading(false);
         setFlag(true);
         throw new Error("Network response was not ok");
       }
@@ -34,18 +42,25 @@ const Login = () => {
       localStorage.setItem("domain", responsedata.domain);
       localStorage.setItem("place", responsedata.place);
       localStorage.setItem("description", responsedata.description);
+     
       if (responsedata.jwt != null) {
-        console.log("Login Success");
-        navigate("/home");
+        
+         navigate("/home");
       } else {
+        setIsLoading(false);
         setFlag(true);
-        console.log("Login falied ");
+        
       }
     } catch (error) {
+      setIsLoading(false);
       setFlag(true);
-      console.log("Error", error);
+      throw new Error(error);
     }
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <div style={{ backgroundColor: "#EEF2FF" }} className="min-h-screen">

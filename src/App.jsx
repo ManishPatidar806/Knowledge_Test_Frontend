@@ -1,16 +1,15 @@
 import { Route, Routes } from "react-router-dom";
 
 import Notes from "./Page/NotesAndSheet/Notes";
-import Certification from "./Page/Quiz/CertificationQuiz";
+
 import Profile from "./Page/Profile/Profile";
 
-import Navbar from "./Page/Home/Navbar";
 import Dashboard from "./Page/Dashboard/Dashboard";
 import Home from "./Page/Home/Home";
-import Quiz from "./Page/Quiz/PracticeQuiz";
+
 import Login from "./Page/Auth/Login";
 import Signup from "./Page/Auth/Signup";
-import CodingTest from "./Page/CodingTest/CodingTest";
+
 import NotFound from "./Page/NotFound/NotFound";
 import ComingSoon from "./Page/CominSoon/CominSoon";
 import Result from "./Page/Quiz/Result";
@@ -32,7 +31,6 @@ function App() {
         <Route path="/" element={<Dashboard />} />
         {token != null ? (
           <>
-           
             <Route path="/home" element={[<Home />]} />
             <Route path="/notes" element={[<Notes />]} />
             <Route path="/result" element={[<Result />]} />

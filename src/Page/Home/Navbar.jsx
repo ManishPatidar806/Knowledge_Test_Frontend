@@ -32,7 +32,7 @@ const Navbar = () => {
 
   function execuiton(path) {
     navigate(path);
-    console.log("path is executed");
+  
   }
 
   return ( 

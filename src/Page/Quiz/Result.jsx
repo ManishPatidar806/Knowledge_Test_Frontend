@@ -1,10 +1,9 @@
-import { useEffect, useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 import Prevent from "../Auth/Prevent";
 
 const Result = () => {
   const score = localStorage.getItem("marks");
-  const totalQuestion = localStorage.getItem("totalQuestion");
   const naviagte = useNavigate();
   const percentage = localStorage.getItem("percentage");
 
