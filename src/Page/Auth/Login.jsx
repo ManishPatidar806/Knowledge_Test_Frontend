@@ -18,8 +18,6 @@ const Login = () => {
     };
 
     const url = import.meta.env.VITE_API_URL
-    console.log(url);
-    
     try {
       
       const response = await fetch(
