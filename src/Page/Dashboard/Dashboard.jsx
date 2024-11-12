@@ -7,7 +7,12 @@ const Dashboard = () => {
 
   const handleRedirect = () => {
     navigate("/login");
-    
+  };
+
+  const headingstyle = {
+    background: "linear-gradient(45deg, #0062ff, #ba01fe)",
+    WebkitBackgroundClip: "text",
+    WebkitTextFillColor: "transparent",
   };
 
   const mystyle = {
@@ -22,14 +27,11 @@ const Dashboard = () => {
       className="top-0 left-0 min-w-screen flex justify-center items-center  min-h-screen bg-cover bg-center "
       style={mystyle}
     >
-      <Prevent/>
+      <Prevent />
       <div className="   min-h-fit py-[2%] my-[3%] bg-black opacity-80  ">
         <div className="text-8xl text-white ">
-          <div className="text-center ">
-            Welcome to the
-            <span className="text-purple-600 "> MANTHAN </span>
-          </div>
-          <div className="text-2xl mt-8 mx-[7%] text-center ">
+          <div className="text-center font-serif" style={headingstyle}>Think And Select</div>
+          <div className="text-2xl  mt-8 mx-[7%] text-center ">
             The ultimate WebApplication for coding enthusiasts and aspiring
             programmers! Designed specifically for those who want to test and
             improve their programming skills, our WebApplication offers a range
