@@ -35,7 +35,7 @@ const PracticeQuiz = () => {
 
       if (response.ok) {
         const data = await response.json().then((data) => {
-          console.log("Data is", data);
+         
           setQuestion(data);
           setIsLoading(false);
         });
@@ -105,8 +105,8 @@ const PracticeQuiz = () => {
         </strong>
       </h1>
 
-      <div className=" bg-gray-900 xl:mx-[10%] 2xl:mx-[15%] flex flex-col md:flex-row justify-center items-center m-10 pb-10 rounded-lg shadow-gray-800 shadow-lg">
-        <div className=" md:w-[50%] w-[90%]  h-96">
+      <div className=" bg-gray-900 xl:mx-[10%] 2xl:mx-[15%] flex flex-col md:flex-row justify-center items-center mx-3 md:mx-10 my-10 pb-10 rounded-lg shadow-gray-800 shadow-lg">
+        <div className=" md:w-[50%] w-[90%]  lg:h-96">
           <div className="m-[10%]   ">
             <div className="mb-4 flex justify-between">
               <p className="text-sm text-start text-gray-400">
@@ -120,7 +120,7 @@ const PracticeQuiz = () => {
             </div>
           </div>
         </div>
-        <div className="md:w-[50%] w-[90%]  pt-10 p-3 md:mr-16 mt-6 text-white h-96">
+        <div className="md:w-[50%] w-[90%]  pt-10 p-3 md:mr-16 mt-6 text-white lg:h-96">
           <div className="space-y-5">
             {currentQuestion?.options?.map((option, index) => (
               <div key={index}>

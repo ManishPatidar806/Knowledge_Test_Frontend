@@ -174,7 +174,7 @@ const Signup = () => {
                   className="btn btn-primary w-full text-white py-2 rounded  transition-transform active:translate-y-1"
                   type="submit"
                 >
-                  Login
+                  Signup
                 </Button>
               </div>
 

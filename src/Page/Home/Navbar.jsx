@@ -36,13 +36,13 @@ const Navbar = () => {
   }
 
   return ( 
-    <div className=" flex justify-center">
+    <div className=" flex justify-center ">
       <div className=" list-none md:w-[50%] rounded-full  bg-white" >
-        <div className="m-3 sm:flex justify-evenly ">
+        <div className="m-3 sm:flex justify-evenly  ">
           {menu.map((item, i) => (
             <Button
               variant="link"
-              className="no-underline text-black normal-case"
+              className="no-underline text-black normal-case bg-transparent"
               key={i}
               onClick={() => execuiton(item.path)}
             >

@@ -115,7 +115,7 @@ const CertificationQuiz = () => {
         </strong>
       </h1>
 
-      <div className=" bg-gray-900 xl:mx-[10%] 2xl:mx-[15%] flex flex-col md:flex-row justify-center items-center m-10 pb-10 rounded-lg shadow-gray-800 shadow-lg">
+      <div className=" bg-gray-900 xl:mx-[10%] 2xl:mx-[15%] flex flex-col md:flex-row justify-center items-center mx-3 md:mx-10 my-10 pb-10 rounded-lg shadow-gray-800 shadow-lg">
         <div className=" md:w-[50%] w-[90%] lg:h-96">
           <div className="m-[10%]   ">
             <div className="mb-4 flex justify-between">
