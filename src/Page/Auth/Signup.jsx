@@ -52,12 +52,12 @@ const Signup = () => {
       } else {
         setIsLoading(false);
 
-        setMessage("Register falied! Try again");
+        setMessage(responsedata.message);
       }
     } catch (error) {
       setIsLoading(false);
 
-      setMessage("Register falied! Try again");
+      setMessage(responsedata.message);
       throw new Error(error);
     }
   };
