@@ -37,7 +37,7 @@ const Tutorial = () => {
             </div>
             <div className="px-6 pt-4 pb-5 absolute bottom-0">
               <a href={item.link}>
-                <button className="bg-purple-600  hover:bg-purple-700 text-white font-bold py-2 px-4 rounded flex justify-start ">
+                <button className="bg-purple-600  hover:bg-purple-700 text-white font-bold py-2 px-4 rounded flex justify-start items-center ">
                   <span>Play</span>
                   <i className="fas fa-arrow-right ml-2"></i>
                 </button>
