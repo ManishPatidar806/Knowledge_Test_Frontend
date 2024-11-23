@@ -16,10 +16,13 @@ const Navbar = () => {
       name: "Tutorial",
       path: "/tutorial",
     },
-
     {
-      name: "CodingTest",
-      path: "/codingtest",
+      name: "Chatbot",
+      path: "/chatbot",
+    },
+    {
+      name: "Code Editor",
+      path: "/editer",
     },
 
     {

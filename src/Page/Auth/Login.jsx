@@ -71,7 +71,7 @@ const Login = () => {
             className="hidden md:block w-1/2 bg-cover bg-center"
             style={{
               backgroundImage:
-                "url('https://res.cloudinary.com/dgmsfmeaz/image/upload/v1730360946/KnowledgeTest/b9xqqaxcdg9ykh8cbjt4.avif')",
+                "url('https://res.cloudinary.com/dgmsfmeaz/image/upload/v1732387282/KnowledgeTest/ihbrodxnhb6u6kxbzs9h.jpg')",
             }}
           ></div>
           <form
