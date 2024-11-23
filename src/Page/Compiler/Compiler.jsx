@@ -16,6 +16,7 @@ const Compiler = () => {
   const handleLanguageChange = (e) => {
     const selectedLanguage = e.target.value;
     setLanguage(selectedLanguage);
+    setOutput("");
 
     const languageData = LANGUAGE_VERSIONS.find(
       (item) => item.name === selectedLanguage
