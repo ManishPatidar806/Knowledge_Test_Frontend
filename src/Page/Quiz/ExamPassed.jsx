@@ -83,7 +83,9 @@ const ExamPassed = () => {
       try {
         setIsLoading(true);
         const response = await fetch(
-          `http://localhost:8080/generate-certificate`,
+          `${
+            import.meta.env.VITE_API_URL
+          }/generate-certificate`,
           {
             method: "get",
             headers: {

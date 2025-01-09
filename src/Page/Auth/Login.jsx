@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Loading from "../Loading/Loading";
+import Loading from "../Loading/MainLoading";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -18,8 +18,9 @@ const Login = () => {
     };
 
     const url = import.meta.env.VITE_API_URL
+
     try {
-      
+    
       const response = await fetch(
         `${url}/auth/login`,
         {
@@ -50,7 +51,7 @@ const Login = () => {
       } else {
         setIsLoading(false);
         setFlag(true);
-        
+
       }
     } catch (error) {
       setIsLoading(false);

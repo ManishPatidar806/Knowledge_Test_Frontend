@@ -11,14 +11,14 @@ const Notes = () => {
 
       <div
         className="grid  grid-cols-1   lg:grid-cols-3 2xl:grid-cols-4
-      md:grid-cols-2 
+      sm:grid-cols-2 
       
       gap-4 md:mx-[2.5%]  mt-5 "
       >
         {NotesData.map((item, i) => (
           <div
             key={i}
-            className="max-w-sm md:max-w-md m-5 pb-10 rounded overflow-hidden shadow-lg  text-white bg-indigo-100 relative"
+            className="min-w-sm md:min-w-md m-5 pb-10 rounded overflow-hidden shadow-lg  text-white bg-indigo-100 relative"
           >
             <img
               className="w-full h-[50%]"

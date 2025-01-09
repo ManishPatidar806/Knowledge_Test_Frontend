@@ -102,8 +102,17 @@ export const LANGUAGE_VERSIONS = [
   { Name: "Perl", name: "perl", version: "5.36.0", aliases: ["pl"] },
 ];
 
+
+
+
 export const CODE_SNIPPETS = {
   dart: `
+ /*
+ Static Code Only: The editor is designed to run static code without any dynamic interaction during execution.
+ If your code requires user input or interaction (such as reading from the console),
+ it will not work in this environment.
+  */
+ 
   void greet(String name) {
     print('Hello, ' + name + '!');
   }
@@ -114,6 +123,12 @@ export const CODE_SNIPPETS = {
     `,
 
   javascript: `
+  /*
+ Static Code Only: The editor is designed to run static code without any dynamic interaction during execution.
+ If your code requires user input or interaction (such as reading from the console),
+ it will not work in this environment.
+  */
+
   function greet(name) {
     console.log('Hello, ' + name + '!');
   }
@@ -121,6 +136,12 @@ export const CODE_SNIPPETS = {
   greet('Alex');
     `,
   "basic.net": `
+  /*
+ Static Code Only: The editor is designed to run static code without any dynamic interaction during execution.
+ If your code requires user input or interaction (such as reading from the console),
+ it will not work in this environment.
+  */
+
   Module Hello
     Sub Main()
       Console.WriteLine("Hello, World in Basic.NET")
@@ -128,6 +149,12 @@ export const CODE_SNIPPETS = {
   End Module
     `,
   "fsharp.net": `
+  /*
+ Static Code Only: The editor is designed to run static code without any dynamic interaction during execution.
+ If your code requires user input or interaction (such as reading from the console),
+ it will not work in this environment.
+  */
+
   module Hello
   
   [<EntryPoint>]
@@ -136,6 +163,12 @@ export const CODE_SNIPPETS = {
       0
     `,
   "csharp.net": `
+  /*
+ Static Code Only: The editor is designed to run static code without any dynamic interaction during execution.
+ If your code requires user input or interaction (such as reading from the console),
+ it will not work in this environment.
+  */
+
   using System;
   
   namespace HelloWorld
@@ -150,6 +183,12 @@ export const CODE_SNIPPETS = {
   }
     `,
   c: `
+  /*
+ Static Code Only: The editor is designed to run static code without any dynamic interaction during execution.
+ If your code requires user input or interaction (such as reading from the console),
+ it will not work in this environment.
+  */
+
   #include <stdio.h>
   
   int main() {
@@ -158,6 +197,12 @@ export const CODE_SNIPPETS = {
   }
     `,
   "c++": `
+  /*
+ Static Code Only: The editor is designed to run static code without any dynamic interaction during execution.
+ If your code requires user input or interaction (such as reading from the console),
+ it will not work in this environment.
+  */
+
   #include <iostream>
   using namespace std;
   
@@ -167,6 +212,12 @@ export const CODE_SNIPPETS = {
   }
     `,
   go: `
+  /*
+ Static Code Only: The editor is designed to run static code without any dynamic interaction during execution.
+ If your code requires user input or interaction (such as reading from the console),
+ it will not work in this environment.
+  */
+
   package main
   
   import "fmt"
@@ -180,9 +231,21 @@ export const CODE_SNIPPETS = {
   }
     `,
   golfscript: `
+  /*
+ Static Code Only: The editor is designed to run static code without any dynamic interaction during execution.
+ If your code requires user input or interaction (such as reading from the console),
+ it will not work in this environment.
+  */
+
   "Hello, Golfscript!" print
     `,
   groovy: `
+  /*
+ Static Code Only: The editor is designed to run static code without any dynamic interaction during execution.
+ If your code requires user input or interaction (such as reading from the console),
+ it will not work in this environment.
+  */
+
   def greet(name) {
       println "Hello, " + name + "!"
   }
@@ -190,6 +253,12 @@ export const CODE_SNIPPETS = {
   greet("Alex")
     `,
   java: `
+  /*
+ Static Code Only: The editor is designed to run static code without any dynamic interaction during execution.
+ If your code requires user input or interaction (such as reading from the console),
+ it will not work in this environment.
+  */
+
   public class HelloWorld {
       public static void main(String[] args) {
           System.out.println("Hello, World in Java");
@@ -197,6 +266,12 @@ export const CODE_SNIPPETS = {
   }
     `,
   kotlin: `
+  /*
+ Static Code Only: The editor is designed to run static code without any dynamic interaction during execution.
+ If your code requires user input or interaction (such as reading from the console),
+ it will not work in this environment.
+  */
+
   fun greet(name: String) {
       println("Hello, " + name + "!")
   }
@@ -206,6 +281,12 @@ export const CODE_SNIPPETS = {
   }
     `,
   csharp: `
+  /*
+ Static Code Only: The editor is designed to run static code without any dynamic interaction during execution.
+ If your code requires user input or interaction (such as reading from the console),
+ it will not work in this environment.
+  */
+
   using System;
   
   namespace HelloWorld
@@ -221,10 +302,22 @@ export const CODE_SNIPPETS = {
     `,
 
   perl: `
+  /*
+ Static Code Only: The editor is designed to run static code without any dynamic interaction during execution.
+ If your code requires user input or interaction (such as reading from the console),
+ it will not work in this environment.
+  */
+
   print "Hello, World in Perl";
     `,
 
   python2: `
+  /*
+ Static Code Only: The editor is designed to run static code without any dynamic interaction during execution.
+ If your code requires user input or interaction (such as reading from the console),
+ it will not work in this environment.
+  */
+
 name = 'Alex'
 print "Hello, " + name + "!"
     `,

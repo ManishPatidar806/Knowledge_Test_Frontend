@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import Loading from "../Loading/Loading";
+import Loading from "../Loading/MainLoading";
 
 const Signup = () => {
   const navigate = useNavigate();

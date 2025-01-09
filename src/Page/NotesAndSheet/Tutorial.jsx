@@ -11,15 +11,13 @@ const Tutorial = () => {
       </div>
 
       <div
-        className="grid  grid-cols-1   lg:grid-cols-3 2xl:grid-cols-4
-      md:grid-cols-2 
-      
+        className="grid  grid-cols-1   lg:grid-cols-3 2xl:grid-cols-4 sm:grid-cols-2 
       gap-4 md:mx-[5%]  mt-5 "
       >
         {TutorialData.map((item, i) => (
           <div
             key={i}
-            className="max-w-sm m-5 pb-10 rounded overflow-hidden shadow-lg  text-white relative "
+            className="min-w-sm m-5 pb-10 rounded overflow-hidden shadow-lg  text-white relative "
             style={{ backgroundColor: "#EEF5FF" }}
           >
             <img
